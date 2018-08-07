@@ -1,11 +1,10 @@
 import tensorflow as tf
 import os, sys, time
-import tb
 import netdef_slim as nd
 from netdef_slim.tensorflow.tools.trainer.simpletrainer import SimpleTrainer
 import numpy as np
 import time
-from tb import read
+from netdef_slim.utils.io import read
 import timeit
 
 class NetActions:
