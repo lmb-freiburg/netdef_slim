@@ -24,7 +24,6 @@ import datetime
 import resource
 from .trainerbase import TrainerBase
 from .helpers import *
-from netmon.message import ProcessStateMessage
 STOP_TIME = get_stop_time()
 
 class SimpleTrainer(TrainerBase):
@@ -456,21 +455,6 @@ class SimpleTrainer(TrainerBase):
                     #break
 
                 global_step_value = new_global_step_value
-
-            try:
-                ips = float('NaN')
-                m = ProcessStateMessage('TYPE=TENSORFLOW\n' +
-                                        'HOST=%s\n' % socket.gethostname() +
-                                        'USER=%s\n' % os.getenv('USER') +
-                                        'PID=%d\n' % os.getpid() +
-                                        'PBSID=%s\n' % os.getenv('PBS_JOBID', '') +
-                                        'FOLDER=%s\n' % self._train_dir +
-                                        'ITER=%d\n' % int(global_step_value) +
-                                        'MAXITER=%d\n' % max_iter +
-                                        'IPS=%.2f\n' % ips)
-                m.send_to('ororea', 10000)
-            except Exception as e:
-                print(e)
 
         print( 'stop iteration', global_step_value, flush=True )
         if global_step_value > start_iteration:
