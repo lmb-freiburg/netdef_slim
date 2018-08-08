@@ -1,6 +1,8 @@
 # netdef_slim
 A python wrapper for tf to ease creation of network definitions.
 
+**NOTE:** Currently we do not publish any training code, only code for deployment is available. 
+
 ## Usage
 * Install tensorflow
 * Install [lmbspecialops](https://github.com/lmb-freiburg/lmbspecialops/tree/eccv18)
