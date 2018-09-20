@@ -37,6 +37,29 @@ def _scale(tensor, factor):
 register_op('scale', _scale)
 
 # ----------------------------------------------------------------------
+def _adjusted_sigmoid(X, min, max):
+    tf.add_to_collection('log_scale_bound', max)
+
+    const = lambda z: _const_like(X, z)
+    min = tf.to_float(min)
+    max = tf.to_float(max)
+    range = max - min
+    x_scaled = _mul(X, const(4.0 / range))
+
+    sig = _sigmoid(x_scaled)
+
+    sig_scaled = _mul(sig, const(range))
+
+    if min != 0:
+        sig_scaled_shifted = _add(sig_scaled, const(min))
+    else:
+        sig_scaled_shifted = sig_scaled
+
+    return sig_scaled_shifted
+
+register_op('adjusted_sigmoid', _adjusted_sigmoid)
+
+# ----------------------------------------------------------------------
 def _zeros(num, channels, height, width, include_phase=None):
     return tf.zeros((num, channels, height, width))
 

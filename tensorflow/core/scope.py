@@ -28,6 +28,8 @@ class _Scope(BaseScope):
     def parent(self): return self._parent
     def weight_decay(self): return self._config['weight_decay']
     def learn(self): return self._config['learn']
+    def shared_batchnorm(self): return self._config['shared_batchnorm']
+    def correlation_leaky_relu(self): return self._config['correlation_leaky_relu']
     def global_step(self):
         if tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope="global_step") != []:
             return tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope="global_step")[0]
@@ -45,6 +47,8 @@ bottom_scope = _Scope(None,
                       conv_nonlin_op=nd.ops.conv_relu,
                       upconv_op=nd.ops.upconv,
                       upconv_nonlin_op=nd.ops.upconv_relu,
-                      weight_decay=0.0)
+                      weight_decay=0.0,
+                      shared_batchnorm=True,
+                      correlation_leaky_relu=False)
 
 bottom_scope.__enter__()

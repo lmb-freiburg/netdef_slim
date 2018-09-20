@@ -80,6 +80,7 @@ register_op('conv_elu', _conv_elu)
 
 
 
+
 def _conv_bn_relu(input, **kwargs):
 
     k_initializer = tf.contrib.layers.variance_scaling_initializer(factor=2, mode='FAN_IN', uniform=False)
@@ -100,6 +101,7 @@ def _conv_bn_relu(input, **kwargs):
         raise KeyError('Missing kernel size')
     if not num_output:
         raise KeyError('Missing output size')
+
 
     # layer
     # note: input might be a tuple, in which case weights are shared
@@ -130,7 +132,7 @@ def _conv_bn_relu(input, **kwargs):
         return leaky_relu(bn_out)
     else:
         outputs = []
-        for i in input:
+        for idx, i in enumerate(input):
             conv_out= tf.layers.conv2d(pad_input(i, pad),
                                 num_output,
                                 kernel_size,
@@ -154,7 +156,7 @@ def _conv_bn_relu(input, **kwargs):
                 trainable= nd.scope.learn(),
                 beta_regularizer = k_regularizer,
                 gamma_regularizer = k_regularizer,
-                name = name + '_bn',
+                name = name + '_bn_' + str(idx) if not nd.scope.shared_batchnorm() else name + '_bn',
                 reuse=tf.AUTO_REUSE,
                 )
             outputs.append(leaky_relu(bn_out))

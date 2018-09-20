@@ -32,7 +32,10 @@ def _correlation(input_a, input_b, **kwargs):
                              stride2=stride2,
                              pad_size=pad)
 
-    corr_out = tf.nn.relu(corr_out)
+    if nd.scope.correlation_leaky_relu():
+        corr_out = tf.nn.leaky_relu(corr_out)
+    else:
+        corr_out = tf.nn.relu(corr_out)
 
     return corr_out
 
