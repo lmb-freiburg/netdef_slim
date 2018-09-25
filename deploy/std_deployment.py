@@ -129,6 +129,7 @@ class StandardDeployment:
         pred.map('occ', self.output_resample_linear, output)
         pred.map('mb', self.output_resample_linear, output)
         pred.map('db', self.output_resample_linear, output)
+        pred.map('iul_b_log', self.output_resample_linear, output)
         return output
 
     def make_graph(self, data, net_graph_constructor, divisor=64., scale=1.0):
