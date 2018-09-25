@@ -40,6 +40,6 @@ class FlowNet2f_Environment(BaseEnvironment):
         data2.translate('occ', 'occ_soft', softmax2_soft_translator)
         data2.translate('occ', 'occ', softmax2_hard_translator)
         data2.translate('iul_b_log', 'iul_scale', iul_b_log_translator)
-        #data2.translate('iul_b_log', 'iul_entropy', iul_b_ent_translator)
+        data2.translate('iul_scale', 'iul_entropy', iul_b_log_ent_translator)
 
         return data2

@@ -10,7 +10,7 @@ def softmax2_hard_translator(data):
 def iul_b_log_translator(value):
     return nd.ops.exp(value, scale=1)
 
-def iul_b_ent_translator(value):
+def iul_b_log_ent_translator(value):
     value2 = nd.ops.mul(value, nd.ops.const_like(value, 2.0))
     value2_eps = nd.ops.add(value2, nd.ops.const_like(value2, 1e-4))
     log = nd.ops.log(value2_eps)
