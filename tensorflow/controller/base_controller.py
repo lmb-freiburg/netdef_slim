@@ -60,9 +60,10 @@ class BaseTFController:
         subparser.add_argument('--iters',       help='number of iters to average runtime', default=100)
         subparser.add_argument('--resolution',  help='the resolution used to measure runtime (width height), default is the Sintel resolution', nargs=2, default=(1024, 436))
         def perf_test():
-            self.perf_test(burn_in = self._args.burn_in,
-                           iters=self._args.iters,
-                           resolution=self._args.resolution)
+            na = self.net_actions(net_dir=self.base_path)
+            na.perf_test(burn_in=self._args.burn_in,
+                         iters=self._args.iters,
+                         resolution=self._args.resolution)
             sys.exit(nd.status.SUCCESS)
         self._command_hooks['perf-test'] = perf_test
 
