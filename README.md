@@ -9,9 +9,9 @@ A python wrapper for tf to ease creation of network definitions.
 * scipy
 
 ## Usage
-* Install tensorflow (e.g. pip3 install tensorflow-gpu==1.4)
+* Install tensorflow (e.g. pip3 install tensorflow-gpu>=1.4)
 * Install [lmbspecialops](https://github.com/lmb-freiburg/lmbspecialops/tree/eccv18)
-* Run `source netdef_slim/bashrc` to use this package
+* Run `python setup.py install` to use this package
 
 ## License
 
